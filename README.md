@@ -7,17 +7,13 @@ This repository contains the data pipeline for AdvertiseX, a digital advertising
 
 - `producers/`: Kafka producers for ingesting data into Kafka topics.
   - `kafka_producer.py`: Generic Kafka producer script.
-  - `json_processor.py`: Processes JSON files for Kafka ingestion.
-  - `csv_processor.py`: Processes CSV files for Kafka ingestion.
-  - `avro_processor.py`: Processes Avro files for Kafka ingestion.
 - `consumers/`: Kafka consumers for processing data from Kafka topics.
 - `data/`: Directory for raw data files (JSON, CSV, Avro).
 - `spark_jobs/`: PySpark scripts for data transformation and processing.
 - `airflow/`: Contains Airflow DAGs for orchestrating the pipeline.
   - `dags/`: Airflow DAG scripts.
-  - `plugins/`: Custom Airflow plugins.
 - `config/`: Configuration files for Kafka, AWS, and other services.
-- `utils/`: Utility scripts for logging and common tasks.
+  - `config.py`: Contains the config to run the pipeline
 
 ## Workflow
 

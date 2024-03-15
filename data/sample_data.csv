@@ -1,0 +1,4 @@
+ad_creative_id,user_id,timestamp,website,clicks,conversions
+ad_001,user_001,2021-01-01T12:00:00,example.com,5,2
+ad_002,user_002,2021-01-01T12:05:00,example.net,3,1
+ad_003,user_003,2021-01-01T12:10:00,example.org,4,3

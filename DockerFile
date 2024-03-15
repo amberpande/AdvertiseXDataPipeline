@@ -1,0 +1,50 @@
+# Use an official Python runtime as a parent image
+FROM python:3.8-slim
+
+# Set the working directory in the container
+WORKDIR /usr/src/app
+
+# Install Java (required for Kafka and Spark)
+RUN apt-get update && \
+    apt-get install -y default-jdk && \
+    apt-get clean
+
+# Install Scala (required for Spark)
+RUN apt-get update && \
+    apt-get install -y wget && \
+    wget https://downloads.lightbend.com/scala/2.12.10/scala-2.12.10.deb && \
+    dpkg -i scala-2.12.10.deb && \
+    apt-get update && \
+    apt-get install -y scala && \
+    rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
+    apt-get clean
+
+# Install Python packages for Kafka, Spark, and AWS
+RUN pip install --no-cache-dir kafka-python pyspark boto3 apache-airflow
+
+# Install Spark
+ENV SPARK_VERSION 3.0.1
+ENV SPARK_HOME /usr/spark-$SPARK_VERSION
+ENV PATH $PATH:$SPARK_HOME/bin
+RUN wget https://downloads.apache.org/spark/spark-$SPARK_VERSION/spark-$SPARK_VERSION-bin-hadoop2.7.tgz && \
+    tar xvf spark-$SPARK_VERSION-bin-hadoop2.7.tgz && \
+    mv spark-$SPARK_VERSION-bin-hadoop2.7 $SPARK_HOME && \
+    rm spark-$SPARK_VERSION-bin-hadoop2.7.tgz
+
+# Install Kafka
+RUN wget https://downloads.apache.org/kafka/2.6.0/kafka_2.12-2.6.0.tgz && \
+    tar -xvzf kafka_2.12-2.6.0.tgz && \
+    mv kafka_2.12-2.6.0 /kafka && \
+    rm kafka_2.12-2.6.0.tgz
+
+# Expose ports (8080 for Airflow, 9092 for Kafka, other Spark ports)
+EXPOSE 8080 9092 4040 6066 7077 8081
+
+# Copy your application code
+COPY . .
+
+# Initialize Airflow (you may need to adjust this depending on your setup)
+RUN airflow initdb
+
+# Run Airflow (adjust this command based on your setup)
+CMD ["airflow", "webserver"]

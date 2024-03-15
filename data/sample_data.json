@@ -1,0 +1,3 @@
+{"ad_creative_id":"ad_001","user_id":"user_001","timestamp":"2021-01-01T12:00:00","website":"example.com","clicks":5,"conversions":2}
+{"ad_creative_id":"ad_002","user_id":"user_002","timestamp":"2021-01-01T12:05:00","website":"example.net","clicks":3,"conversions":1}
+{"ad_creative_id":"ad_003","user_id":"user_003","timestamp":"2021-01-01T12:10:00","website":"example.org","clicks":4,"conversions":3}
